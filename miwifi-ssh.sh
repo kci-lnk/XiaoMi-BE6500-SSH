@@ -30,6 +30,8 @@ try:
     code = json.load(sys.stdin)["code"]
 except (ValueError, KeyError, TypeError):
     sys.exit("路由器响应缺少有效的状态码")
+if type(code) is int and code == 1523:
+    sys.exit("路由器返回 1523，已拒绝本次开启请求。若该节点已有 SSH，可用 --check 验证登录。")
 if type(code) is not int or code != 0:
     sys.exit("路由器返回错误码 %r" % code)
 '
